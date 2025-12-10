@@ -1,7 +1,6 @@
 streamlit
 langchain
 langchain-community
-langchain-classic
 langchain-google-genai
 langchain-huggingface
 langchain-chroma
@@ -10,3 +9,5 @@ sentence-transformers
 python-dotenv
 pypdf
 torch
+pysqlite3-binary
+langchain-classic
