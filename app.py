@@ -1,7 +1,9 @@
 import pysqlite3
 import sys
+
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
+import torch
 import streamlit as st
 import os
 from dotenv import load_dotenv
@@ -33,11 +35,18 @@ st.title("🧠 NeuroRAG Chatbot")
 # --- Logic Section ---
 @st.cache_resource
 def get_resources():
+    # AUTOMATIC DEVICE DETECTION
+    # If a GPU is available (your PC), use it. 
+    # If not (Streamlit Cloud), switch to CPU automatically.
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    
+    st.write(f"⚙️ System: Using {device.upper()} for processing.") # Optional: Show user what is running
+    
     # Load the GPU-accelerated embedding model
     # We use the exact same model name as we did in ingest.py
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2",
-        model_kwargs={"device": "cuda"},
+        model_kwargs={"device": device},
     )
 
     # Connect to the Database we built earlier
