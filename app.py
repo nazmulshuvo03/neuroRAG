@@ -81,7 +81,7 @@ def get_chain(vector_store):
     """Create the RAG chain with Gemini and the vector store"""
     try:
         # Connect to Gemini (The Brain)
-        llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3)
+        llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3)
 
         # Turn the DB into a search engine (retrieve top 5 relevant chunks)
         retriever = vector_store.as_retriever(search_kwargs={"k": 5})
